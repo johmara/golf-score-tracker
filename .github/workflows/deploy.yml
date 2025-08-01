@@ -9,18 +9,25 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: client
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: cd client | npm ci
+        run: npm ci
 
       - name: Build Angular project
-        run: cd client | npm run build -- --configuration=production
+        run: npm run build -- --configuration=production
+
+      - name: Add CNAME file (optional, GitHub usually handles this)
+        run: echo "golf.martinson.phd" > dist/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./client/dist
+          publish_dir: ./dist
