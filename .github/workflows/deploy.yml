@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - main  # Make sure this matches your actual default branch
 
 jobs:
   build-and-deploy:
@@ -12,7 +12,6 @@ jobs:
     defaults:
       run:
         working-directory: client
-
 
     steps:
       - name: Checkout 🛎️
@@ -24,13 +23,16 @@ jobs:
           node-version: '20.17'
 
       - name: Install dependencies 🔧
-        run: npm install
+        run: npm ci
 
       - name: Build project 🏗️
         run: npm run build -- --output-path=dist/ --base-href=/
+
+      - name: Add CNAME file 🌐
+        run: echo "golf.martinson.phd" > dist/CNAME
 
       - name: Deploy to GitHub Pages 🚀
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/browser
+          publish_dir: ./client/dist
