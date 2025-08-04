@@ -26,13 +26,13 @@ jobs:
         run: npm install
 
       - name: Build project 🏗️
-        run: npm run build -- --output-path=dist/ --base-href=/
+        run: npm run build -- --output-path=dist/client --base-href=/
 
       - name: Add CNAME file 🌐
-        run: echo "golf.martinson.phd" > dist/CNAME
+        run: echo "golf.martinson.phd" > dist/client/CNAME
 
       - name: Deploy to GitHub Pages 🚀
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./client/dist
+          publish_dir: ./client/dist/client
