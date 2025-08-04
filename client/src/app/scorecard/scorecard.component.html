@@ -1,1 +1,26 @@
-<p>scorecard works!</p>
+<div class="card-stack">
+  <div
+    class="hole-card"
+    *ngFor="let score of scores; index as i"
+    [class.active]="i === selectedIndex"
+  >
+    <!-- Score Input Fields -->
+    <h3>Hole {{ score.hole }}</h3>
+    <input type="number" [(ngModel)]="score.strokes" placeholder="Strokes" />
+    <input type="number" [(ngModel)]="score.putts" placeholder="Putts" />
+    <label>
+      Fairway Hit:
+      <input type="checkbox" [(ngModel)]="score.fairwayHit" />
+    </label>
+    <label>
+      GIR:
+      <input type="checkbox" [(ngModel)]="score.greenInRegulation" />
+    </label>
+  </div>
+
+  <!-- Flip Navigation -->
+  <div class="nav-buttons">
+    <button (click)="flipPrev()" [disabled]="selectedIndex === 0">←</button>
+    <button (click)="flipNext()" [disabled]="selectedIndex === scores.length - 1">→</button>
+  </div>
+</div>
