@@ -1,9 +1,5 @@
 <div class="card-stack">
-  <div
-    class="hole-card"
-    *ngFor="let score of scores; index as i"
-    [class.active]="i === selectedIndex"
-  >
+  <div class="hole-card" *ngFor="let score of scores; index as i" [class.active]="i === selectedIndex">
     <!-- Score Input Fields -->
     <h3>Hole {{ score.hole }}</h3>
     <input type="number" [(ngModel)]="score.strokes" placeholder="Strokes" />
